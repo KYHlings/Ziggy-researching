@@ -69,10 +69,10 @@ def draw_2(self, win):
         pygame.draw.rect(win, (255, 0, 0), self.hitbox, 2)
 
 
-def collide(self, enemy):
-    self.hitbox.Rect.colliderect = (self.x + 5, self.y, 29, 70)
-    self.hitbox.Rect.colliderect
-    self.colliderect(enemy)
+# def collide(self, enemy):
+#     self.hitbox.Rect.colliderect = (self.x + 5, self.y, 29, 70)
+#     self.hitbox.Rect.colliderect
+#     self.colliderect(enemy)
 
 
 class Projectile():
@@ -98,7 +98,7 @@ def draw_frame():
     pygame.display.update()
 
 def player1_movement(self):
-    collide(self, player2)
+    # collide(self, player2)
     # for loop for special attack
     for special in special_move_1:
         if screen_width > special.x > 0:
