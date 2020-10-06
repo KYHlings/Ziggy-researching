@@ -19,7 +19,7 @@ walk_right = [pygame.image.load('pics//walking_right_2.png')]
 walk_left = [pygame.image.load('pics//walking_left_1.png')]
 char = [pygame.image.load('pics//look_left.png'), pygame.image.load('pics//look_right.png')]
 fps_clock = pygame.time.Clock()
-fps = 300
+fps = 60
 
 
 class Player():
@@ -30,8 +30,9 @@ class Player():
         # x and y values that decide the size of the character
         self.width = width
         self.height = height
+        self.colliderect = pygame.Rect((width, width), (height, height))
         # how many pixels the character is moving per action
-        self.vel = 2
+        self.vel = 5
         self.vel_2 = 2
         # variables for the jumping mechanism
         self.is_jump = False
@@ -45,15 +46,16 @@ class Player():
         self.right = False
         self.standing = True
 
-    def draw(self, win):
+
+def draw_2(self, win):
         if self.walk_count + 1 >= 3:
             self.walk_count = 0
 
         if not self.standing:
-            if player1.left:
+            if self.left:
                 win.blit(walk_left[self.walk_count // 3], (self.x, self.y))
                 self.walk_count += 1
-            elif player1.right:
+            elif self.right:
                 win.blit(walk_right[self.walk_count // 3], (self.x, self.y))
                 self.walk_count += 1
         else:
@@ -66,8 +68,11 @@ class Player():
         # draws a red line outlining the hitbox
         pygame.draw.rect(win, (255, 0, 0), self.hitbox, 2)
 
-    def hit(self):
-        print("hit")
+
+def collide(self, enemy):
+    self.hitbox.Rect.colliderect = (self.x + 5, self.y, 29, 70)
+    self.hitbox.Rect.colliderect
+    self.colliderect(enemy)
 
 
 class Projectile():
@@ -85,16 +90,15 @@ class Projectile():
 
 def draw_frame():
     win.fill(white)
-    player1.draw(win)
-    player2.draw(win)
+    draw_2(player1, win)
+    draw_2(player2, win)
     for special in special_move_1:
         special.draw(win)
 
     pygame.display.update()
 
-
-
-def player1_movement():
+def player1_movement(self):
+    collide(self, player2)
     # for loop for special attack
     for special in special_move_1:
         if screen_width > special.x > 0:
@@ -105,49 +109,48 @@ def player1_movement():
     keys = pygame.key.get_pressed()
     if keys[pygame.K_f]:
         # add parameter that stores charge-up, add if that checks if charge-up is at desired value and execute, else print "NEED MORE ENERGY"
-        if player1.left:
+        if self.left:
             facing = -1
         else:
             facing = 1
         if len(special_move_1) < 1:
             special_move_1.append(
-                Projectile(round(player1.x + player1.width // 2), round(player1.y + player1.height // 2),
+                Projectile(round(self.x + self.width // 2), round(self.y + self.height // 2),
                            radius=6, color=blue, facing=facing))
     # moving left
-    if keys[pygame.K_a] and player1.x > player1.vel:
-        player1.x -= player1.vel
-        player1.left = True
-        player1.right = False
-        player1.standing = False
+    if keys[pygame.K_a] and self.x > self.vel:
+        self.x -= self.vel
+        self.left = True
+        self.right = False
+        self.standing = False
     # moving right
-    elif keys[pygame.K_d] and player1.x < screen_width - player1.width - player1.vel:
-        player1.x += player1.vel
-        player1.left = False
-        player1.right = True
-        player1.standing = False
+    elif keys[pygame.K_d] and self.x < screen_width - self.width - self.vel:
+        self.x += player1.vel
+        self.left = False
+        self.right = True
+        self.standing = False
     # standing still
     else:
-        player1.standing = True
-        player1.walk_count = 0
+        self.standing = True
+        self.walk_count = 0
     # jumping, checks if we are not jumping and if we are not we can jump
-    if not player1.is_jump:
+    if not self.is_jump:
         if keys[pygame.K_SPACE]:
-            player1.is_jump = True
-            player1.left = False
-            player1.right = False
-            player1.walk_count = 0
+            self.is_jump = True
+            self.left = False
+            self.right = False
+            self.walk_count = 0
     else:
-        fps_clock.tick(40)
-        if player1.jump_count >= -10:
+        if self.jump_count >= -10:
             neg_1 = 1
-            if player1.jump_count < 0:
+            if self.jump_count < 0:
                 neg_1 = -1
             # hastigeten på hoppet, höjd på hoppet,
-            player1.y -= (player1.jump_count ** 2) * 0.5 * neg_1
-            player1.jump_count -= 1
+            self.y -= (self.jump_count ** 2) * 0.5 * neg_1
+            self.jump_count -= 1
         else:
-            player1.is_jump = False
-            player1.jump_count = 10
+            self.is_jump = False
+            self.jump_count = 10
 
 
 def player2_movement():
@@ -193,7 +196,6 @@ def player2_movement():
             player2.right = False
             player2.walk_count = 0
     else:
-        fps_clock.tick(40)
         if player2.jump_count >= -10:
             neg = 1
             if player2.jump_count < 0:
@@ -217,7 +219,7 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-    player1_movement()
+    player1_movement(player1)
     player2_movement()
     draw_frame()
 
