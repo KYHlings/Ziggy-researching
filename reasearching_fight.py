@@ -30,7 +30,6 @@ class Player():
         # x and y values that decide the size of the character
         self.width = width
         self.height = height
-        self.colliderect = pygame.Rect((width, width), (height, height))
         # how many pixels the character is moving per action
         self.vel = 5
         self.vel_2 = 2
@@ -39,12 +38,17 @@ class Player():
         self.jump_count = 10
         # counter for walking animation
         self.walk_count = 0
-        # setting range for hitbox
-        self.hitbox = (self.x + 5, self.y, 29, 70)
         # stating left and right
         self.left = False
         self.right = False
         self.standing = True
+        self.rect = pygame.draw.rect(win, blue, (self.x, self.y, 29, 70))
+
+    def check_collide(self, enemy):
+        self.hitbox = pygame.draw.rect(win, black, (self.x, self.y, 29, 70))
+        win.blit(self.hitbox)
+        if self.hitbox.colliderect(enemy):
+            print("HIT")
 
 
 def draw_2(self, win):
@@ -63,16 +67,13 @@ def draw_2(self, win):
                 win.blit(char[0], (self.x, self.y))
             else:
                 win.blit(char[1], (self.x, self.y))
-        # draws hitbox
-        self.hitbox = (self.x + 5, self.y, 29, 70)
-        # draws a red line outlining the hitbox
-        pygame.draw.rect(win, (255, 0, 0), self.hitbox, 2)
 
 
-# def collide(self, enemy):
-#     self.hitbox.Rect.colliderect = (self.x + 5, self.y, 29, 70)
-#     self.hitbox.Rect.colliderect
-#     self.colliderect(enemy)
+# draws an invisible hitbox around our characters
+def check_collide(self, enemy):
+    hitbox = pygame.draw.rect(win, white, (self.x, self.y, 29, 70))
+    if hitbox.colliderect(enemy):
+        print("HIT")
 
 
 class Projectile():
@@ -97,8 +98,9 @@ def draw_frame():
 
     pygame.display.update()
 
+
 def player1_movement(self):
-    # collide(self, player2)
+    check_collide(self, player2)
     # for loop for special attack
     for special in special_move_1:
         if screen_width > special.x > 0:
@@ -153,7 +155,8 @@ def player1_movement(self):
             self.jump_count = 10
 
 
-def player2_movement():
+def player2_movement(self):
+    check_collide(self, player1)
     # for loop for special attack
     for special in special_move_2:
         if screen_width > special.x > 0:
@@ -164,47 +167,47 @@ def player2_movement():
     keys = pygame.key.get_pressed()
     if keys[pygame.K_u]:
         # add parameter that stores charge-up, add if that checks if charge-up is at desired value and execute, else print "NEED MORE ENERGY"
-        if player2.left:
+        if self.left:
             facing = -1
         else:
             facing = 1
         if len(special_move_2) < 1:
             special_move_2.append(
-                Projectile(round(player2.x + player2.width // 2), round(player2.y + player2.height // 2),
+                Projectile(round(self.x + self.width // 2), round(self.y + self.height // 2),
                            radius=6, color=blue, facing=facing))
     # moving left
-    if keys[pygame.K_LEFT] and player2.x > player2.vel:
-        player2.x -= player2.vel
-        player2.left = True
-        player2.right = False
-        player2.standing = False
+    if keys[pygame.K_LEFT] and self.x > self.vel:
+        self.x -= self.vel
+        self.left = True
+        self.right = False
+        self.standing = False
     # moving right
-    elif keys[pygame.K_RIGHT] and player2.x < screen_width - player2.width - player2.vel:
-        player2.x += player2.vel
-        player2.left = False
-        player2.right = True
-        player2.standing = False
+    elif keys[pygame.K_RIGHT] and self.x < screen_width - self.width - self.vel:
+        self.x += self.vel
+        self.left = False
+        self.right = True
+        self.standing = False
     # standing still
     else:
-        player2.standing = True
-        player2.walk_count = 0
+        self.standing = True
+        self.walk_count = 0
     # jumping, checks if we are not jumping and if we are not we can jump
-    if not player2.is_jump:
+    if not self.is_jump:
         if keys[pygame.K_j]:
-            player2.is_jump = True
-            player2.left = False
-            player2.right = False
-            player2.walk_count = 0
+            self.is_jump = True
+            self.left = False
+            self.right = False
+            self.walk_count = 0
     else:
-        if player2.jump_count >= -10:
+        if self.jump_count >= -10:
             neg = 1
-            if player2.jump_count < 0:
+            if self.jump_count < 0:
                 neg = -1
-            player2.y -= (player2.jump_count ** 2) * 0.5 * neg
-            player2.jump_count -= 1
+            self.y -= (self.jump_count ** 2) * 0.5 * neg
+            self.jump_count -= 1
         else:
-            player2.is_jump = False
-            player2.jump_count = 10
+            self.is_jump = False
+            self.jump_count = 10
 
 
 # mainloop
@@ -220,7 +223,7 @@ while running:
         if event.type == pygame.QUIT:
             running = False
     player1_movement(player1)
-    player2_movement()
+    player2_movement(player2)
     draw_frame()
 
 pygame.quit()
