@@ -15,7 +15,7 @@ screen_height = 1000
 win = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption("FIGHT")
 
-casino_bg = pygame.image.load('Side-project//fighting_game//pics//casino.png')
+casino_bg = pygame.image.load('pics//casino.png')
 walk_right = [pygame.image.load('pics//walking_right_2.png')]
 walk_left = [pygame.image.load('pics//walking_left_1.png')]
 char = [pygame.image.load('pics//look_left.png'), pygame.image.load('pics//look_right.png')]
@@ -219,7 +219,7 @@ player2 = Player(800, 500, 40, 70)
 running = True
 
 while running:
-    win.blit(casino_bg)
+    win.blit(casino_bg, (0, 0))
     pygame.display.update()
     # for loop for exiting the window
     for event in pygame.event.get():
