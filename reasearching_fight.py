@@ -15,6 +15,7 @@ screen_height = 1000
 win = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption("FIGHT")
 
+casino_bg = pygame.image.load('Side-project//fighting_game//pics//casino.png')
 walk_right = [pygame.image.load('pics//walking_right_2.png')]
 walk_left = [pygame.image.load('pics//walking_left_1.png')]
 char = [pygame.image.load('pics//look_left.png'), pygame.image.load('pics//look_right.png')]
@@ -127,7 +128,7 @@ def player1_movement(self):
         self.standing = False
     # moving right
     elif keys[pygame.K_d] and self.x < screen_width - self.width - self.vel:
-        self.x += player1.vel
+        self.x += self.vel
         self.left = False
         self.right = True
         self.standing = False
@@ -213,11 +214,13 @@ def player2_movement(self):
 # mainloop
 special_move_1 = []
 special_move_2 = []
-player1 = Player(500, 500, 40, 70)
-player2 = Player(700, 500, 40, 70)
+player1 = Player(300, 500, 40, 70)
+player2 = Player(800, 500, 40, 70)
 running = True
 
 while running:
+    win.blit(casino_bg)
+    pygame.display.update()
     # for loop for exiting the window
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
