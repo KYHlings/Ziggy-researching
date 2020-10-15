@@ -1,6 +1,6 @@
 import pygame
 
-class Menu():
+class Menu_values():
     def __init__(self, game):
         self.game = game
         self.mid_w = self.game.DISPLAY_W/2
@@ -17,9 +17,9 @@ class Menu():
         pygame.display.update()
         self.game.reset_keys()
 
-class Mainmenu(Menu):
+class Mainmenu(Menu_values):
     def __init__(self, game):
-        Menu.__init__(self, game)
+        Menu_values.__init__(self, game)
         self.state = "Start"
 
         self.startx = self.mid_w
@@ -86,9 +86,10 @@ class Mainmenu(Menu):
                 self.game.curr_menu = self.game.credits
             self.run_display = False
 
-class Options_menu(Menu):
+
+class Options_menu(Menu_values):
     def __init__(self, game):
-        Menu.__init__(self, game)
+        Menu_values.__init__(self, game)
         self.state = "Volume"
         self.volx = self.mid_w
         self.voly = self.mid_h + 20
@@ -125,9 +126,9 @@ class Options_menu(Menu):
             pass
 
 
-class Credits_menu(Menu):
+class Credits_menu(Menu_values):
     def __init__(self, game):
-        Menu.__init__(self, game)
+        Menu_values.__init__(self, game)
 
     def display_menu(self):
         self.run_display = True
