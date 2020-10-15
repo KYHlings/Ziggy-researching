@@ -1,8 +1,6 @@
 import pygame
 import os
-from ROB.main_menu import main_menu
-from ROB.lobby import lobby
-from ROB.win import win
+
 
 # grundinställningar
 os.environ["SDL_VIDEO_CENTERED"] = "1"
@@ -11,7 +9,7 @@ pygame.init()
 screen_width = 800
 screen_height = 600
 screen = pygame.display.set_mode((screen_width, screen_height))
-bg_image = [pygame.image.load('pics//arena_bakgrund_0.png'), pygame.image.load('pics//arena_bakgrund_1.png')]
+bg_image = [pygame.image.load('pics2//arena_bakgrund_0.png'), pygame.image.load('pics2//arena_bakgrund_1.png')]
 
 # ljudeffekter
 effect_punch = pygame.mixer.Sound('music//PUNCH.wav')
@@ -48,7 +46,7 @@ class Player(pygame.sprite.Sprite):
         self.right = False
         self.rect = (0, 0, 0, 0)
         self.images = []
-        self.image = [pygame.image.load("pics//walking_right_2.png")]
+        self.image = [pygame.image.load("pics2//walking_right_2.png")]
         self.hp = 100
         self.dead = False
 
@@ -56,7 +54,7 @@ class Player(pygame.sprite.Sprite):
 def player1_pics(self):
     self.images = []
     for i in range(1, 3):
-        img = pygame.image.load(os.path.join('pics', 'walking_right_' + str(i) + '.png')).convert()
+        img = pygame.image.load(os.path.join('pics2', 'walking_right_' + str(i) + '.png')).convert()
         img.convert_alpha()  # optimise alpha
         img.set_colorkey(black)  # set alpha
         self.images.append(img)
@@ -199,7 +197,7 @@ def player_movement(player1, player2):
 def punch_and_kick():
     player_dead(player1, player2)
     if player1.dead == True or player2.dead == True:
-        lobby()
+        pass
 
     # kollar om en knapp är nedtryckt
     if keys.type == pygame.KEYDOWN:
@@ -235,7 +233,7 @@ def punch_and_kick():
 
 
 def player_dead(player1, player2):
-    dead = pygame.image.load("pics//player_dead.png")
+    dead = pygame.image.load("pics2//player_dead.png")
     if player1.hp == 0:
         player1.dead = True
         screen.blit(dead, (player1.rect.x, 550))

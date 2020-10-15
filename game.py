@@ -1,5 +1,6 @@
 import pygame
 from menu_values import *
+from fight import fight
 
 class Game():
     def __init__(self):
@@ -27,6 +28,8 @@ class Game():
         self.credits = Credits_menu(self)
         self.curr_menu = self.main_menu
 
+        self.fight = fight()
+
 
 
 
@@ -36,10 +39,11 @@ class Game():
             if self.START_KEY:
                 self.playing = False
             self.display.fill(self.black)
-            self.draw_text("Thanks for playing", 20, self.DISPLAY_W/2, self.DISPLAY_H/2)
-            self.window.blit(self.display, (0, 0))
+            self.fight()
             pygame.display.update()
             self.reset_keys()
+
+
 
     def check_events(self):
         for event in pygame.event.get():

@@ -15,10 +15,10 @@ screen_height = 1000
 win = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption("FIGHT")
 
-casino_bg = pygame.image.load('pics//casino.png')
-walk_right = [pygame.image.load('pics//walking_right_2.png')]
-walk_left = [pygame.image.load('pics//walking_left_1.png')]
-char = [pygame.image.load('pics//look_left.png'), pygame.image.load('pics//look_right.png')]
+casino_bg = pygame.image.load('pics2//casino.png')
+walk_right = [pygame.image.load('pics2//walking_right_2.png')]
+walk_left = [pygame.image.load('pics2//walking_left_1.png')]
+char = [pygame.image.load('pics2//look_left.png'), pygame.image.load('pics2//look_right.png')]
 fps_clock = pygame.time.Clock()
 fps = 60
 
