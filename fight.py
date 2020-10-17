@@ -1,3 +1,5 @@
+import sys
+
 import pygame
 import os
 
@@ -197,7 +199,8 @@ def player_movement(player1, player2):
 def punch_and_kick():
     player_dead(player1, player2)
     if player1.dead == True or player2.dead == True:
-        pass
+        game_state = "lobby"
+        return game_state
 
     # kollar om en knapp är nedtryckt
     if keys.type == pygame.KEYDOWN:
@@ -231,7 +234,6 @@ def punch_and_kick():
                 print(f"HP PLAYER 1: {player1.hp}")
 
 
-
 def player_dead(player1, player2):
     dead = pygame.image.load("pics2//player_dead.png")
     if player1.hp == 0:
@@ -245,7 +247,7 @@ def player_dead(player1, player2):
         effect_dead.play(0)
 
 
-def fight():
+def fight(game_state):
     fight_music()
     global keys
     running = True
@@ -257,6 +259,9 @@ def fight():
         player_list.draw(screen)
         for keys in pygame.event.get():
             if keys.type == pygame.QUIT:
-                running = False
+                sys.exit()
+
             punch_and_kick()
         player_movement(player1, player2)
+        if game_state == "lobby":
+            return game_state

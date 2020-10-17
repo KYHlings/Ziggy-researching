@@ -1,5 +1,6 @@
 import pygame
 
+
 class Menu_values():
     def __init__(self, game):
         self.game = game
@@ -16,6 +17,7 @@ class Menu_values():
         self.game.window.blit(self.game.display, (0, 0))
         pygame.display.update()
         self.game.reset_keys()
+
 
 class Mainmenu(Menu_values):
     def __init__(self, game):

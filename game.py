@@ -43,8 +43,6 @@ class Game():
             pygame.display.update()
             self.reset_keys()
 
-
-
     def check_events(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -73,3 +71,6 @@ class Game():
         text_rect = text_surface.get_rect()
         text_rect.center = (x, y)
         self.display.blit(text_surface, text_rect)
+
+class Lobby(Game):
+
