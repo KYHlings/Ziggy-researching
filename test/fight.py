@@ -27,7 +27,6 @@ screen.blit(bg_image[0], (0, 0))
 screen.blit(bg_image[1], (0, 0))
 
 
-
 def fight_music():
     pygame.mixer.music.stop()
     pygame.mixer.music.load('music//fight_music.ogg')
@@ -198,6 +197,10 @@ def player_movement(player1, player2):
 
 
 def punch_and_kick():
+    player_dead(player1, player2)
+    if player1.dead == True or player2.dead == True:
+        pass
+
     # kollar om en knapp är nedtryckt
     if keys.type == pygame.KEYDOWN:
 
@@ -236,11 +239,13 @@ def player_dead(player1, player2):
         player1.dead = True
         screen.blit(dead, (player1.rect.x, 550))
         effect_dead.play(0)
+        return player1.dead
 
     if player2.hp == 0:
         player2.dead = True
         screen.blit(dead, (player2.rect.x, 550))
         effect_dead.play(0)
+        return player2.dead
     else:
         pass
 
@@ -260,13 +265,6 @@ def fight():
                 running = False
             punch_and_kick()
         player_movement(player1, player2)
-        player_dead(player1, player2)
-        if player1.dead == True or player2.dead == True:
-            return
-    player1.dead = False
-    player2.dead = False
-    print("Thanks for playing")
-
 
 
 # MENY
