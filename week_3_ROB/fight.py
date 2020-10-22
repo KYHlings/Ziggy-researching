@@ -1,6 +1,7 @@
 import sys
 import pygame
 import os
+from week_3_ROB import player_pics
 
 # grundinställningar
 os.environ["SDL_VIDEO_CENTERED"] = "1"
@@ -426,9 +427,6 @@ def fight(current_match):
     # återställer tillstånd
             player1.dead = False
             player2.dead = False
-            player1.match += 1
-            player2.match += 1
-            print(player1.match, player2.match)
             # om en spelare är död returnera vinnarens nummer
             # låt stå, funkar trots varning
             return winner
